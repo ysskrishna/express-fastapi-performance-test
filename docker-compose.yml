@@ -17,6 +17,19 @@ services:
         limits:
           cpus: '0.50'
           memory: 512M
-
+  
+  fastapi_sync:
+    build: ./fastapi_sync
+    ports:
+      - "8001:8001"
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://service_user:service_password@postgres/service_db
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
 volumes:
   postgres_data: 
