@@ -4,6 +4,6 @@ from dbutils import Base
 class Item(Base):
     __tablename__ = "items"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
+    item_id = Column(Integer, primary_key=True)
+    name = Column(String)
     description = Column(String)
