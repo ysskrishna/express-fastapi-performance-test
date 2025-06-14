@@ -6,7 +6,12 @@ from fastapi.middleware.cors import CORSMiddleware
 # Create tables
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(
+    title="FastAPI Sync API",
+    description="A FastAPI application with CRUD operations",
+    version="1.0.0"
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
