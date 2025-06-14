@@ -5,7 +5,7 @@ class ItemCreate(BaseModel):
     description: str
 
 class ItemResponse(ItemCreate):
-    id: int
+    item_id: int
 
     class Config:
         from_attributes = True

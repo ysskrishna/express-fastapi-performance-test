@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
+from typing import List
 import models
 import schemas
 from dbutils import get_db
@@ -16,19 +17,19 @@ def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
 
 @router.get("/items/{item_id}", response_model=schemas.ItemResponse)
 def read_item(item_id: int, db: Session = Depends(get_db)):
-    item = db.query(models.Item).filter(models.Item.id == item_id).first()
+    item = db.query(models.Item).filter(models.Item.item_id == item_id).first()
     if item is None:
         raise HTTPException(status_code=404, detail="Item not found")
     return item
 
-@router.get("/items/", response_model=list[schemas.ItemResponse])
+@router.get("/items/", response_model=List[schemas.ItemResponse])
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = db.query(models.Item).offset(skip).limit(limit).all()
     return items
 
 @router.put("/items/{item_id}", response_model=schemas.ItemResponse)
 def update_item(item_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)):
-    db_item = db.query(models.Item).filter(models.Item.id == item_id).first()
+    db_item = db.query(models.Item).filter(models.Item.item_id == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
     
@@ -41,7 +42,7 @@ def update_item(item_id: int, item: schemas.ItemCreate, db: Session = Depends(ge
 
 @router.delete("/items/{item_id}")
 def delete_item(item_id: int, db: Session = Depends(get_db)):
-    db_item = db.query(models.Item).filter(models.Item.id == item_id).first()
+    db_item = db.query(models.Item).filter(models.Item.item_id == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
     
