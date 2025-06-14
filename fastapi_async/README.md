@@ -1,6 +1,6 @@
 # FastAPI CRUD Load Testing
 
-This project demonstrates a FastAPI Sync application with CRUD operations 
+This project demonstrates a FastAPI application with CRUD operations 
 
 ## API Endpoints
 

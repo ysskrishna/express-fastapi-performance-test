@@ -2,8 +2,10 @@
 
 
 ```
-docker compose down
+docker compose down -v
 docker compose up --build
+docker compose --profile fastapi-sync up --build
+docker compose --profile fastapi-async up --build
 docker stats
 ```
 

@@ -8,7 +8,7 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="FastAPI Sync API",
-    description="A FastAPI application with CRUD operations",
+    description="A FastAPI Sync application with CRUD operations",
     version="1.0.0"
 )
 

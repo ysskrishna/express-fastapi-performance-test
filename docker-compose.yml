@@ -43,5 +43,31 @@ services:
         limits:
           cpus: '0.50'
           memory: 512M
+    profiles:
+      - fastapi-sync
+
+  fastapi_async:
+    build: ./fastapi_async
+    ports:
+      - "8002:8002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://service_user:service_password@postgres/service_db
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://localhost:8002\")' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    profiles:
+      - fastapi-async
+
 volumes:
   postgres_data: 
