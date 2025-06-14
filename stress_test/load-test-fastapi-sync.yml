@@ -1,0 +1,70 @@
+config:
+  target: "http://localhost:8001"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 50
+      name: "Warm up"
+    - duration: 300
+      arrivalRate: 50
+      name: "Sustained load"
+  processor: "./functions.js"  # Optional
+  ensure:
+    maxErrorRate: 1  # Fail test if >1% errors
+  plugins:
+    metrics-by-endpoint: {}
+
+scenarios:
+  - name: "CRUD_operations"
+    flow:
+      - post:
+          url: "/items/"
+          json:
+            name: "Test Item {{ $randomNumber(1, 1000) }}"
+            description: "Description for test item {{ $randomNumber(1, 1000) }}"
+          capture:
+            - json: "$.id"
+              as: "itemId"
+          expect:
+            - statusCode: 201
+      - think: 1
+
+      - get:
+          url: "/items/{{ itemId }}"
+          expect:
+            - statusCode: 200
+      - think: 1
+
+      - put:
+          url: "/items/{{ itemId }}"
+          json:
+            name: "Updated Item {{ $randomNumber(1, 1000) }}"
+            description: "Updated description {{ $randomNumber(1, 1000) }}"
+          expect:
+            - statusCode: 200
+      - think: 1
+
+      - get:
+          url: "/items/"
+          expect:
+            - statusCode: 200
+      - think: 1
+
+      - delete:
+          url: "/items/{{ itemId }}"
+          expect:
+            - statusCode: 200
+      - think: 1
+
+  - name: "read_heavy_traffic"
+    flow:
+      - get:
+          url: "/items/"
+          expect:
+            - statusCode: 200
+      - think: 2
+      - get:
+          url: "/items/"
+          expect:
+            - statusCode: 200
+      - think: 2
