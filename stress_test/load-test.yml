@@ -5,6 +5,8 @@ config:
       target: "http://127.0.0.1:8001"
     fastapi-async:
       target: "http://127.0.0.1:8002"
+    express:
+      target: "http://127.0.0.1:3000"
   phases:
     - duration: 60
       arrivalRate: 5
