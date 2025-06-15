@@ -1,11 +1,19 @@
 # FastAPI vs Express Performance Test
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)](https://nodejs.org)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)](https://fastapi.tiangolo.com)
+[![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)](https://expressjs.com)
+[![Artillery](https://img.shields.io/badge/Artillery-2.0.21-FF0000?style=flat&logo=artillery&logoColor=white)](https://artillery.io)
+
 This project compares the performance of three different backend implementations:
 - FastAPI (Synchronous)
 - FastAPI (Asynchronous)
 - Express.js
 
-The comparison is done through load testing using Artillery.io, measuring response times, throughput, and error rates under various load conditions.
+The comparison is done through load testing using [Artillery.io](https://www.artillery.io/), measuring response times, throughput, and error rates under various load conditions.
 
 ## Project Structure
 
@@ -23,7 +31,7 @@ The comparison is done through load testing using Artillery.io, measuring respon
 
 - Docker and Docker Compose
 - Node.js (for running Artillery)
-- Artillery.io (version 2.0.21)
+- [Artillery.io](Artillery.io) (version 2.0.21)
 
 ## Docker Compose Profiles
 
