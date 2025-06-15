@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from item_router import router as item_router
-from dbutils import Base, engine
 
 app = FastAPI(
     title="FastAPI Async API",
@@ -20,14 +19,6 @@ app.add_middleware(
 # Include routers
 app.include_router(item_router)
 
-# Create tables asynchronously
-async def init_db():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-
-@app.on_event("startup")
-async def startup_event():
-    await init_db()
 
 @app.get("/")
 def read_root():

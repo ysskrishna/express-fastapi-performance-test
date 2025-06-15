@@ -4,15 +4,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from config import Config
 
 async_database_url = Config.DATABASE_URL
-engine = create_async_engine(async_database_url, echo=True)
-async_session = sessionmaker(
-    engine, class_=AsyncSession, expire_on_commit=False
-)
+engine = create_async_engine(async_database_url, echo=False)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, expire_on_commit=False, pool_pre_ping=True, bind=engine, class_=AsyncSession)
 Base = declarative_base()
 
 async def get_db():
-    async with async_session() as session:
-        try:
-            yield session
-        finally:
-            await session.close()
+    async with SessionLocal() as session:
+        yield session
