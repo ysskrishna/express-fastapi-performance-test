@@ -52,6 +52,18 @@ This approach allows us to:
 - Save resources by only running necessary services
 - Maintain clean separation between different implementations
 
+## Resource Limitations
+
+Each service in this project is configured with the following resource constraints:
+- CPU: Limited to 0.5 cores (50% of a single CPU core)
+- Memory: Limited to 512MB RAM
+
+These limitations ensure:
+- Fair comparison between different implementations
+- Controlled resource usage during load testing
+- Consistent performance measurements
+- Prevention of resource exhaustion
+
 ## Setup
 
 1. Install Artillery globally:
