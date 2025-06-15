@@ -6,6 +6,7 @@ docker compose down -v
 docker compose up --build
 docker compose --profile fastapi-sync up --build
 docker compose --profile fastapi-async up --build
+docker compose --profile express up --build
 docker stats
 ```
 
@@ -24,4 +25,10 @@ artillery report reports/fastapi-sync.json --output reports/fastapi-sync-report.
 ```bash
 artillery run -e fastapi-async load-test.yml  -o reports/fastapi-async.json
 artillery report reports/fastapi-async.json --output reports/fastapi-async-report.html
+```
+
+
+```bash
+artillery run -e express load-test.yml  -o reports/express.json
+artillery report reports/express.json --output reports/express-report.html
 ```
