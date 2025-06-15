@@ -5,7 +5,7 @@ from config import Config
 
 async_database_url = Config.DATABASE_URL
 engine = create_async_engine(async_database_url, echo=False)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, expire_on_commit=False, pool_pre_ping=True, bind=engine, class_=AsyncSession)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, expire_on_commit=False, bind=engine, class_=AsyncSession)
 Base = declarative_base()
 
 async def get_db():
