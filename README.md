@@ -25,6 +25,25 @@ The comparison is done through load testing using Artillery.io, measuring respon
 - Node.js (for running Artillery)
 - Artillery.io (version 2.0.21)
 
+## Docker Compose Profiles
+
+This project uses Docker Compose profiles to manage different service configurations. Profiles allow us to run specific sets of services without starting the entire stack. The following profiles are defined:
+
+- `fastapi-sync`: Runs the synchronous FastAPI implementation with PostgreSQL
+- `fastapi-async`: Runs the asynchronous FastAPI implementation with PostgreSQL
+- `express`: Runs the Express.js implementation with PostgreSQL
+
+Each profile can be activated using the `--profile` flag with `docker compose` commands. For example:
+```bash
+docker compose --profile fastapi-sync up
+```
+
+This approach allows us to:
+- Run different implementations independently
+- Compare performance without interference
+- Save resources by only running necessary services
+- Maintain clean separation between different implementations
+
 ## Setup
 
 1. Install Artillery globally:
@@ -34,7 +53,6 @@ artillery version
 ```
 
 https://www.artillery.io/docs/get-started/get-artillery
-
 
 ## Load Testing
 
