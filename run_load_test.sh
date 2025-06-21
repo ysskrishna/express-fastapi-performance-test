@@ -6,7 +6,7 @@ REPORT_DIR="stress_test/reports"
 CONFIG_DIR="stress_test"
 
 VALID_PROFILES=("fastapi-sync" "fastapi-async" "express")
-VALID_TESTS=("write-heavy")
+VALID_TESTS=("write-heavy" "spike")
 
 run_test() {
   PROFILE=$1

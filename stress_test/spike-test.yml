@@ -1,0 +1,37 @@
+config:
+  target: "http://127.0.0.1:8001"
+  environments:
+    fastapi-sync:
+      target: "http://127.0.0.1:8001"
+    fastapi-async:
+      target: "http://127.0.0.1:8002"
+    express:
+      target: "http://127.0.0.1:3000"
+  phases:
+    - duration: 30
+      arrivalRate: 5
+      name: "Normal load"
+    - duration: 60
+      arrivalRate: 100
+      name: "Spike"
+    - duration: 30
+      arrivalRate: 5
+      name: "Back to normal"
+  ensure:
+    maxErrorRate: 1
+  plugins:
+    metrics-by-endpoint: {}
+
+scenarios:
+  - name: "spike_test"
+    flow:
+      - get:
+          url: "/items/"
+          expect:
+            - statusCode: 200
+      - think: 1
+      - get:
+          url: "/items/"
+          expect:
+            - statusCode: 200
+      - think: 1 
