@@ -1,0 +1,42 @@
+config:
+  target: "http://127.0.0.1:8001"
+  environments:
+    fastapi-sync:
+      target: "http://127.0.0.1:8001"
+    fastapi-async:
+      target: "http://127.0.0.1:8002"
+    express:
+      target: "http://127.0.0.1:3000"
+  phases:
+    - duration: 3600
+      arrivalRate: 10
+      name: "Long duration test"
+  ensure:
+    maxErrorRate: 1
+  plugins:
+    metrics-by-endpoint: {}
+
+scenarios:
+  - name: "soak_test"
+    flow:
+      - get:
+          url: "/items/"
+          expect:
+            - statusCode: 200
+      - think: 2
+      - post:
+          url: "/items/"
+          json:
+            name: "Soak Test Item {{ $randomNumber(1, 1000) }}"
+            description: "Soak test description {{ $randomNumber(1, 1000) }}"
+          capture:
+            - json: "$.item_id"
+              as: "itemId"
+          expect:
+            - statusCode: 201
+      - think: 2
+      - get:
+          url: "/items/{{ itemId }}"
+          expect:
+            - statusCode: 200
+      - think: 2 
