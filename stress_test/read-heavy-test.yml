@@ -1,5 +1,8 @@
 config:
   target: "http://127.0.0.1:8001"
+  processor: "./functions.js" 
+  variables:
+    seedCount: 50
   environments:
     fastapi-sync:
       target: "http://127.0.0.1:8001"
@@ -15,25 +18,16 @@ config:
     maxErrorRate: 1
   plugins:
     metrics-by-endpoint: {}
+ 
+
+before:
+  flow:
+    - log: "Starting data seeding"
+    - function: "seedTestData"
+    - log: "Data seeding completed"
+    - think: 1  
 
 scenarios:
-  - name: "seed_items_before_read"
-    weight: 0  # only used for setup
-    before:
-      flow:
-        - loop:
-            count: 50
-            loop:
-              - post:
-                  url: "/items"
-                  json:
-                    name: "Item {{ $loopElement }}"
-                    description: "Seeded item for read-heavy test"
-              - think: 0.1
-        - think: 2
-    flow:
-      - think: 0  # no actual load test here
-
   - name: "read_item_lists"
     weight: 1
     flow:
@@ -41,4 +35,14 @@ scenarios:
           url: "/items/?skip={{ $randomNumber(0, 40) }}&limit=10"
           expect:
             - statusCode: 200
-      - think: 0.2
+      - think: 0.1
+
+  - name: "read_item_by_id"
+    weight: 1
+    flow:
+      - get:
+          url: "/items/{{ $randomNumber(1, 50) }}"
+          expect:
+            - statusCode: 200
+      - think: 0.1
+
