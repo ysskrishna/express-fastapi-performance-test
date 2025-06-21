@@ -21,7 +21,7 @@ app.include_router(item_router)
 
 
 @app.get("/")
-def read_root():
+async def read_root():
     return {"message": "Welcome to the FastAPI Async API"}
 
 if __name__ == "__main__":

@@ -8,21 +8,16 @@ config:
     express:
       target: "http://127.0.0.1:3000"
   phases:
-    - duration: 60
-      arrivalRate: 5
-      rampTo: 50
-      name: "Warm up"
-    - duration: 300
-      arrivalRate: 50
-      name: "Sustained load"
-  processor: "./functions.js"  # Optional
+    - duration: 180
+      arrivalRate: 20
+      name: "Write operations"
   ensure:
-    maxErrorRate: 1  # Fail test if >1% errors
+    maxErrorRate: 1
   plugins:
     metrics-by-endpoint: {}
 
 scenarios:
-  - name: "CRUD_operations"
+  - name: "write_operations"
     flow:
       - post:
           url: "/items/"
@@ -35,13 +30,6 @@ scenarios:
           expect:
             - statusCode: 201
       - think: 1
-
-      - get:
-          url: "/items/{{ itemId }}"
-          expect:
-            - statusCode: 200
-      - think: 1
-
       - put:
           url: "/items/{{ itemId }}"
           json:
@@ -49,29 +37,4 @@ scenarios:
             description: "Updated description {{ $randomNumber(1, 1000) }}"
           expect:
             - statusCode: 200
-      - think: 1
-
-      - get:
-          url: "/items/"
-          expect:
-            - statusCode: 200
-      - think: 1
-
-      - delete:
-          url: "/items/{{ itemId }}"
-          expect:
-            - statusCode: 200
-      - think: 1
-
-  - name: "read_heavy_traffic"
-    flow:
-      - get:
-          url: "/items/"
-          expect:
-            - statusCode: 200
-      - think: 2
-      - get:
-          url: "/items/"
-          expect:
-            - statusCode: 200
-      - think: 2 
+      - think: 1 
