@@ -86,12 +86,12 @@ The project includes comprehensive load testing scenarios that simulate:
 
 1. FastAPI (Synchronous):
 ```bash
-# Start the services
-docker compose --profile fastapi-sync up --build
+# Build and Start the services in detached mode
+docker compose --profile fastapi-sync up -d --build
 
 # Run the load test
-artillery run -e fastapi-sync stress_test/load-test.yml -o reports/fastapi-sync.json
-artillery report reports/fastapi-sync.json --output reports/fastapi-sync-report.html
+artillery run -e fastapi-sync stress_test/load-test.yml -o stress_test/reports/fastapi-sync.json
+artillery report stress_test/reports/fastapi-sync.json --output stress_test/reports/fastapi-sync-report.html
 
 # Stop the services and remove volumes
 docker compose --profile fastapi-sync down -v
@@ -99,12 +99,12 @@ docker compose --profile fastapi-sync down -v
 
 2. FastAPI (Asynchronous):
 ```bash
-# Start the services
-docker compose --profile fastapi-async up --build
+# Build and Start the services in detached mode
+docker compose --profile fastapi-async up -d --build
 
 # Run the load test
-artillery run -e fastapi-async stress_test/load-test.yml -o reports/fastapi-async.json
-artillery report reports/fastapi-async.json --output reports/fastapi-async-report.html
+artillery run -e fastapi-async stress_test/load-test.yml -o stress_test/reports/fastapi-async.json
+artillery report stress_test/reports/fastapi-async.json --output stress_test/reports/fastapi-async-report.html
 
 # Stop the services and remove volumes
 docker compose --profile fastapi-async down -v
@@ -112,12 +112,12 @@ docker compose --profile fastapi-async down -v
 
 3. Express.js:
 ```bash
-# Start the services
-docker compose --profile express up --build
+# Build and Start the services in detached mode
+docker compose --profile express up -d --build
 
 # Run the load test
-artillery run -e express stress_test/load-test.yml -o reports/express.json
-artillery report reports/express.json --output reports/express-report.html
+artillery run -e express stress_test/load-test.yml -o stress_test/reports/express.json
+artillery report stress_test/reports/express.json --output stress_test/reports/express-report.html
 
 # Stop the services and remove volumes
 docker compose --profile express down -v
