@@ -69,6 +69,7 @@ These limitations ensure:
 1. Install Artillery globally:
 ```bash
 npm install -g artillery@2.0.21
+npm install -g artillery-plugin-metrics-by-endpoint
 artillery version 
 ```
 
