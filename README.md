@@ -77,60 +77,95 @@ https://www.artillery.io/docs/get-started/get-artillery
 
 ## Load Testing
 
-The project includes comprehensive load testing scenarios that simulate:
-- CRUD operations
-- Read-heavy traffic
-- Gradual load increase
-- Sustained high load
+The project includes a comprehensive load testing suite using Artillery.io that simulates various real-world scenarios:
+
+### Test Scenarios
+
+1. **Read-Heavy Test**
+   - Simulates high-volume read operations
+   - Random pagination and filtering
+   - Tests system performance under read-intensive workloads
+
+2. **Write-Heavy Test**
+   - Tests concurrent create and update operations
+   - Evaluates database write performance
+   - Measures system stability under write pressure
+
+3. **Spike Test**
+   - Evaluates system behavior under sudden load spikes
+   - Tests system's ability to handle traffic surges
+   - Measures response time degradation
+
+4. **Stress Test**
+   - Determines system breaking points under sustained load
+   - Identifies performance bottlenecks
+   - Tests system recovery capabilities
+
+5. **Soak Test**
+   - Long-running test to identify memory leaks
+   - Evaluates system stability over extended periods
+   - Tests resource utilization patterns
 
 ### Running Tests
 
-1. FastAPI (Synchronous):
+The project includes an automated test runner script (`run_artillery_test.sh`) that handles:
+- Service orchestration using Docker Compose
+- Test execution with Artillery.io
+- Report generation in both JSON and HTML formats
+- Automatic cleanup of test resources
+
+#### Usage
+
 ```bash
-# Build and Start the services in detached mode
-docker compose --profile fastapi-sync up -d --build
-
-# Run the load test
-artillery run -e fastapi-sync stress_test/load-test.yml -o stress_test/reports/fastapi-sync.json
-artillery report stress_test/reports/fastapi-sync.json --output stress_test/reports/fastapi-sync-report.html
-
-# Stop the services and remove volumes
-docker compose --profile fastapi-sync down -v
+./run_artillery_test.sh <profile> <test-type>
 ```
 
-2. FastAPI (Asynchronous):
+Available profiles:
+- `fastapi-sync`: FastAPI with synchronous operations
+- `fastapi-async`: FastAPI with asynchronous operations
+- `express`: Express.js implementation
+
+Available test types:
+- `read-heavy`: Read-intensive workload simulation
+- `write-heavy`: Write-intensive workload simulation
+- `spike`: Sudden traffic spike simulation
+- `stress`: Sustained high load testing
+- `soak`: Long-running stability test
+
+Example:
 ```bash
-# Build and Start the services in detached mode
-docker compose --profile fastapi-async up -d --build
-
-# Run the load test
-artillery run -e fastapi-async stress_test/load-test.yml -o stress_test/reports/fastapi-async.json
-artillery report stress_test/reports/fastapi-async.json --output stress_test/reports/fastapi-async-report.html
-
-# Stop the services and remove volumes
-docker compose --profile fastapi-async down -v
+# Run read-heavy test on FastAPI async implementation
+./run_artillery_test.sh fastapi-async read-heavy
 ```
 
-3. Express.js:
-```bash
-# Build and Start the services in detached mode
-docker compose --profile express up -d --build
+### Test Reports
 
-# Run the load test
-artillery run -e express stress_test/load-test.yml -o stress_test/reports/express.json
-artillery report stress_test/reports/express.json --output stress_test/reports/express-report.html
+Test results are automatically generated in two formats:
+1. JSON reports (`artillery_tests/reports/<profile>-<test-type>.json`)
+   - Detailed metrics and raw data
+   - Suitable for programmatic analysis
+   - Contains timing, error rates, and throughput data
 
-# Stop the services and remove volumes
-docker compose --profile express down -v
-```
+2. HTML reports (`artillery_tests/reports/<profile>-<test-type>-report.html`)
+   - Visual representation of test results
+   - Interactive charts and graphs
+   - Summary statistics and key metrics
 
-## Test Scenarios
+### Test Configuration
 
-The load test configuration includes:
-- Warm-up phase: 60 seconds with arrival rate increasing from 5 to 50 requests/second
-- Sustained load phase: 300 seconds with constant 50 requests/second
-- CRUD operations: Create, read, update, and delete operations
-- Read-heavy traffic: Multiple GET requests to simulate read-heavy scenarios
+Each test scenario is configured in YAML files under the `artillery_tests` directory:
+- `read-heavy-test.yml`: Read operation simulation
+- `write-heavy-test.yml`: Write operation simulation
+- `spike-test.yml`: Traffic spike simulation
+- `stress-test.yml`: Sustained load testing
+- `soak-test.yml`: Long-running stability test
+
+The test configurations can be customized to adjust:
+- Virtual user count
+- Request rates
+- Test duration
+- Endpoint patterns
+- Custom scenarios and functions
 
 ## Monitoring
 
