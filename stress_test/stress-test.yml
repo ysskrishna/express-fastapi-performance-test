@@ -1,0 +1,43 @@
+config:
+  target: "http://127.0.0.1:8001"
+  environments:
+    fastapi-sync:
+      target: "http://127.0.0.1:8001"
+    fastapi-async:
+      target: "http://127.0.0.1:8002"
+    express:
+      target: "http://127.0.0.1:3000"
+  phases:
+    - duration: 60
+      arrivalRate: 10
+      name: "Initial load"
+    - duration: 60
+      arrivalRate: 20
+      name: "Double load"
+    - duration: 60
+      arrivalRate: 40
+      name: "Quadruple load"
+    - duration: 60
+      arrivalRate: 80
+      name: "Maximum load"
+  ensure:
+    maxErrorRate: 1
+  plugins:
+    metrics-by-endpoint: {}
+
+scenarios:
+  - name: "stress_test"
+    flow:
+      - get:
+          url: "/items/"
+          expect:
+            - statusCode: 200
+      - think: 1
+      - post:
+          url: "/items/"
+          json:
+            name: "Stress Test Item {{ $randomNumber(1, 1000) }}"
+            description: "Stress test description {{ $randomNumber(1, 1000) }}"
+          expect:
+            - statusCode: 201
+      - think: 1 
