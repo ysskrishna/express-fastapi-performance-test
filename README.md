@@ -23,7 +23,8 @@ The comparison is done through load testing using [Artillery.io](https://www.art
 ├── fastapi_async/    # Asynchronous FastAPI implementation
 ├── express/          # Express.js implementation
 ├── postgres/         # Database initialization scripts
-├── stress_test/      # Load testing configuration
+├── artillery_tests/  # Load testing configuration and scripts
+├── documentation/    # Example reports and analysis
 └── docker-compose.yml
 ```
 
@@ -213,6 +214,33 @@ To stop and remove all containers and volumes:
 ```bash
 docker compose down -v
 ```
+
+## Documentation and Reports
+
+This project provides comprehensive documentation and pre-generated reports in the `documentation/` directory.
+
+### Artillery Reports
+
+Reports for all test scenarios are available in `documentation/artillery_generated_reports`. These can serve as a reference for what to expect from your own test runs.
+
+Here's a snapshot of what an HTML report looks like:
+
+![Artillery Report Sample](./documentation/express-breakpoint-read-report-sample.png)
+
+
+### Interactive Dashboard
+
+An interactive dashboard for visualizing and comparing performance metrics is available on Looker Studio.
+
+- **Public URL**: [View the Performance Dashboard](https://lookerstudio.google.com/reporting/270e16b6-8831-41d5-aed0-4d2352b39218/page/pqwOF)
+- **Note**: You must be signed into a Google account to view this dashboard.
+
+Here's a snapshot of what an Looker Dashboard looks like:
+
+![Looker Dashboard](./documentation/looker/report_dashboard.png)
+
+A Looker Dashboard PDF version can be downloaded [here](./documentation/looker/report_dashboard.pdf).
+
 
 ## Contributing
 
