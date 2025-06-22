@@ -6,7 +6,7 @@ REPORT_DIR="artillery_tests/reports"
 CONFIG_DIR="artillery_tests"
 
 VALID_PROFILES=("fastapi-sync" "fastapi-async" "express")
-VALID_TESTS=("write-heavy" "spike" "stress" "soak" "read-heavy" "breakpoint-read")
+VALID_TESTS=("write-heavy" "spike" "stress" "soak" "read-heavy" "breakpoint-read" "breakpoint-write")
 
 run_test() {
   PROFILE=$1

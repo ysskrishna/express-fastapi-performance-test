@@ -1,0 +1,68 @@
+config:
+  target: "http://127.0.0.1:8001"
+  environments:
+    fastapi-sync:
+      target: "http://127.0.0.1:8001"
+    fastapi-async:
+      target: "http://127.0.0.1:8002"
+    express:
+      target: "http://127.0.0.1:3000"
+  phases:
+    - duration: 30
+      arrivalRate: 1
+      rampTo: 5
+      name: "Warm up phase"
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 20
+      name: "Gradual increase phase 1"
+    - duration: 60
+      arrivalRate: 20
+      rampTo: 50
+      name: "Gradual increase phase 2"
+    - duration: 60
+      arrivalRate: 50
+      rampTo: 100
+      name: "Gradual increase phase 3"
+    - duration: 60
+      arrivalRate: 100
+      rampTo: 200
+      name: "Breaking point phase"
+    - duration: 30
+      arrivalRate: 200
+      rampTo: 50
+      name: "Cool down phase"
+  ensure:
+    maxErrorRate: 2
+  plugins:
+    metrics-by-endpoint: {}
+    expect: {}
+    http: {}
+
+scenarios:
+  - name: "write_operations"
+    flow:
+      - post:
+          url: "/items/"
+          json:
+            name: "Test Item {{ $randomNumber(1, 1000) }}"
+            description: "Test Description {{ $randomNumber(1, 1000) }}"
+          capture:
+            - json: "$.item_id"
+              as: "itemId"
+          expect:
+            - statusCode: 200
+      - think: 0.5
+      - put:
+          url: "/items/{{ itemId }}"
+          json:
+            name: "Updated Item {{ itemId }}"
+            description: "Updated Description {{ itemId }}"
+          expect:
+            - statusCode: 200
+      - think: 0.5
+      - delete:
+          url: "/items/{{ itemId }}"
+          expect:
+            - statusCode: 200
+      - think: 0.5 
