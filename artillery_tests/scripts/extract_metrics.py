@@ -115,8 +115,8 @@ def extract_timeseries_metrics(json_file):
 def main():
     base_dir = Path(__file__).parent
     reports_dir = base_dir.parent / "reports"
-    agg_csv = base_dir / "artillery_metrics.csv"
-    ts_csv = base_dir / "artillery_timeseries.csv"
+    agg_csv = base_dir / "artillery_aggregate_metrics.csv"
+    ts_csv = base_dir / "artillery_timeseries_metrics.csv"
 
     aggregate_data = []
     timeseries_data = []
