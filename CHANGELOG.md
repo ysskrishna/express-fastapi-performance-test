@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2025-06-22
 
 ### Added
 - Initial project setup with FastAPI (async and sync) and Express.js implementations
@@ -29,3 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Test reporting system:
   - JSON reports for detailed analysis
   - HTML reports for visual representation of test results
+- Added `documentation` directory which includes:
+  - Generated `Artillery.io` reports for all test scenarios.
+  - Looker Dashboard to visualize the performance metrics report in PDF format, PNG and Public Link.
+- Updated `README.md` to include a link to a public Looker Studio dashboard for visualizing performance metrics.
+
+
+[1.0.0]: https://github.com/ysskrishna/express-fastapi-performance-test/releases/tag/v1.0.0

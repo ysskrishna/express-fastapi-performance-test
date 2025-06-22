@@ -7,6 +7,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)](https://fastapi.tiangolo.com)
 [![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)](https://expressjs.com)
 [![Artillery](https://img.shields.io/badge/Artillery-2.0.21-FF0000?style=flat&logo=artillery&logoColor=white)](https://artillery.io)
+[![Looker](https://img.shields.io/badge/Looker-4285F4?style=flat&logo=looker&logoColor=white)](https://lookerstudio.google.com/reporting/270e16b6-8831-41d5-aed0-4d2352b39218/page/pqwOF)
 
 This project compares the performance of three different backend implementations:
 - FastAPI (Synchronous)
@@ -168,6 +169,20 @@ Example:
 ```bash
 # Run read-heavy test on FastAPI async implementation
 ./run_artillery_test.sh fastapi-async read-heavy
+```
+
+#### Running All Tests
+
+The project also includes a `run_all_artillery_tests.sh` script to execute the entire test suite. This script will:
+- Iterate through all profiles (`fastapi-sync`, `fastapi-async`, `express`).
+- Run every test type for each profile.
+- Generate a summary report at the end.
+
+This is useful for comprehensive performance validation across all implementations.
+
+Usage:
+```bash
+./run_all_artillery_tests.sh
 ```
 
 ### Test Reports
