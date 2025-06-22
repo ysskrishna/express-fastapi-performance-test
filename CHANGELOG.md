@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Spike test: Evaluates system behavior under sudden load spikes
   - Stress test: Determines system breaking points under sustained load
   - Soak test: Long-running test to identify memory leaks and stability issues
+  - Breakpoint-read test: Assesses performance thresholds for read operations
+  - Breakpoint-write test: Assesses performance thresholds for write operations
 - Automated test runner script (`run_artillery_test.sh`) with features:
   - Support for multiple test profiles (fastapi-sync, fastapi-async, express)
   - Automatic service orchestration using Docker Compose

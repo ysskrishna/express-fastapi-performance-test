@@ -79,32 +79,61 @@ https://www.artillery.io/docs/get-started/get-artillery
 
 The project includes a comprehensive load testing suite using Artillery.io that simulates various real-world scenarios:
 
-### Test Scenarios
+### 🔬 Test Scenarios
 
-1. **Read-Heavy Test**
-   - Simulates high-volume read operations
-   - Random pagination and filtering
-   - Tests system performance under read-intensive workloads
+#### 1. **Read-Heavy Test**
+* Simulates high-volume `GET` requests
+* Includes random pagination and optional filtering
+* Evaluates system performance under **read-intensive workloads**
+* Identifies latency trends and potential bottlenecks in read paths
 
-2. **Write-Heavy Test**
-   - Tests concurrent create and update operations
-   - Evaluates database write performance
-   - Measures system stability under write pressure
+#### 2. **Write-Heavy Test**
+* Simulates concurrent `POST`, `PUT`, and `DELETE` operations
+* Stress-tests the database's write throughput
+* Measures system stability and responsiveness under **write-heavy traffic**
+* Useful for tuning **transactions, indexing, and batch inserts**
 
-3. **Spike Test**
-   - Evaluates system behavior under sudden load spikes
-   - Tests system's ability to handle traffic surges
-   - Measures response time degradation
+#### 3. **Spike Test**
+* Introduces **sudden, large spikes in traffic**
+* Tests the system's elasticity and autoscaling behavior (if any)
+* Measures degradation in response time and error rates during and after spikes
+* Helps validate rate limiting and failover mechanisms
 
-4. **Stress Test**
-   - Determines system breaking points under sustained load
-   - Identifies performance bottlenecks
-   - Tests system recovery capabilities
+#### 4. **Stress Test**
+* Gradually increases the load to **identify system breaking points**
+* Helps expose:
+  * Memory or CPU bottlenecks
+  * Slow database queries
+  * Throughput limits
+* Evaluates how the system **recovers** after hitting its limits
 
-5. **Soak Test**
-   - Long-running test to identify memory leaks
-   - Evaluates system stability over extended periods
-   - Tests resource utilization patterns
+#### 5. **Soak Test**
+* Simulates **continuous moderate load** over an extended duration
+* Detects issues like:
+  * Memory leaks
+  * Connection pool exhaustion
+  * Resource starvation over time
+* Helps validate system **stability and reliability** for long-running deployments
+
+#### 6. **Breakpoint-Read Test**
+* Incrementally increases the number of **read (`GET`) requests**
+* Identifies the exact point where:
+  * **Response times degrade**
+  * **Error rates increase**
+* Useful for testing:
+  * **Caching mechanisms**
+  * **Database read pools**
+  * **Horizontal read scaling limits**
+
+#### 7. **Breakpoint-Write Test**
+* Gradually increases the number of **write operations (`POST`, `PUT`, `DELETE`)**
+* Identifies the load threshold where:
+  * **Writes start failing or slowing down**
+  * **CPU, memory, or DB locks become critical**
+* Helps optimize:
+  * **Write throughput**
+  * **Transaction handling**
+  * **Concurrency limits**
 
 ### Running Tests
 
@@ -131,6 +160,8 @@ Available test types:
 - `spike`: Sudden traffic spike simulation
 - `stress`: Sustained high load testing
 - `soak`: Long-running stability test
+- `breakpoint-read`: Read operation threshold testing
+- `breakpoint-write`: Write operation threshold testing
 
 Example:
 ```bash
@@ -159,6 +190,8 @@ Each test scenario is configured in YAML files under the `artillery_tests` direc
 - `spike-test.yml`: Traffic spike simulation
 - `stress-test.yml`: Sustained load testing
 - `soak-test.yml`: Long-running stability test
+- `breakpoint-read-test.yml`: Read operation threshold testing
+- `breakpoint-write-test.yml`: Write operation threshold testing
 
 The test configurations can be customized to adjust:
 - Virtual user count
