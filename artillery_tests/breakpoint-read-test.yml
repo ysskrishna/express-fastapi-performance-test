@@ -1,0 +1,69 @@
+config:
+  target: "http://127.0.0.1:8001"
+  processor: "./functions.js" 
+  variables:
+    seedCount: 100
+  environments:
+    fastapi-sync:
+      target: "http://127.0.0.1:8001"
+    fastapi-async:
+      target: "http://127.0.0.1:8002"
+    express:
+      target: "http://127.0.0.1:3000"
+  phases:
+    - duration: 30
+      arrivalRate: 1
+      rampTo: 5
+      name: "Warm up phase"
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 20
+      name: "Gradual increase phase 1"
+    - duration: 60
+      arrivalRate: 20
+      rampTo: 50
+      name: "Gradual increase phase 2"
+    - duration: 60
+      arrivalRate: 50
+      rampTo: 100
+      name: "Gradual increase phase 3"
+    - duration: 60
+      arrivalRate: 100
+      rampTo: 200
+      name: "Breaking point phase"
+    - duration: 30
+      arrivalRate: 200
+      rampTo: 50
+      name: "Cool down phase"
+  ensure:
+    maxErrorRate: 2  # Stricter error rate threshold
+  plugins:
+    metrics-by-endpoint: {}
+    expect: {}
+    http: {}
+
+before:
+  flow:
+    - log: "Starting data seeding"
+    - function: "seedTestData"
+    - log: "Data seeding completed"
+    - think: 1  
+
+scenarios:
+  - name: "get_items_breakpoint"
+    weight: 2
+    flow:
+      - get:
+          url: "/items/{{ $randomNumber(1, 100) }}"
+          expect:
+            - statusCode: 200
+      - think: 0.5
+
+  - name: "list_items_paginated"
+    weight: 1
+    flow:
+      - get:
+          url: "/items/?skip={{ $randomNumber(0, 90) }}&limit=10"
+          expect:
+            - statusCode: 200
+      - think: 0.5
