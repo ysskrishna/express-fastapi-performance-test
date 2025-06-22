@@ -48,19 +48,20 @@ def extract_aggregate_metrics(json_file):
     # Counters
     metrics.extend([
         (framework, test_type, 'total_requests', counters.get('http.requests', 0)),
-        (framework, test_type, 'successful_requests', counters.get('http.codes.200', 0)),
-        (framework, test_type, 'failed_requests', counters.get('vusers.failed', 0)),
+        (framework, test_type, 'failed_vusers', counters.get('vusers.failed', 0)),
         (framework, test_type, 'total_vusers', counters.get('vusers.created', 0)),
         (framework, test_type, 'completed_vusers', counters.get('vusers.completed', 0)),
         (framework, test_type, 'requests_per_second', rates.get('http.request_rate', 0))
     ])
 
-    # Error rate
-    total = counters.get('http.requests', 0)
-    success = counters.get('http.codes.200', 0)
-    if total > 0:
-        error_rate = (total - success) / total * 100
-        metrics.append((framework, test_type, 'error_rate', error_rate))
+    completed = counters.get("vusers.completed", 0)
+    failed = counters.get("vusers.failed", 0)
+    total = completed + failed
+
+    success_percent = (completed / total * 100) if total > 0 else 0
+    error_percent = (failed / total * 100) if total > 0 else 0
+    metrics.append((framework, test_type, 'error_percent', error_percent))
+    metrics.append((framework, test_type, 'success_percent', success_percent))
 
     return metrics
 
