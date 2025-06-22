@@ -21,6 +21,8 @@ config:
     maxErrorRate: 1
   plugins:
     metrics-by-endpoint: {}
+    expect: {}
+    http: {}
 
 scenarios:
   - name: "spike_test"

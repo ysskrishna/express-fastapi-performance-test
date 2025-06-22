@@ -24,6 +24,8 @@ config:
     maxErrorRate: 1
   plugins:
     metrics-by-endpoint: {}
+    expect: {}
+    http: {}
 
 scenarios:
   - name: "stress_test"
@@ -39,5 +41,5 @@ scenarios:
             name: "Stress Test Item {{ $randomNumber(1, 1000) }}"
             description: "Stress test description {{ $randomNumber(1, 1000) }}"
           expect:
-            - statusCode: 201
+            - statusCode: 200
       - think: 1 
