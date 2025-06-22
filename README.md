@@ -234,15 +234,6 @@ docker compose down -v
 
 This project provides comprehensive documentation and pre-generated reports in the `documentation/` directory.
 
-### Artillery Reports
-
-Reports for all test scenarios are available in `documentation/artillery_generated_reports`. These can serve as a reference for what to expect from your own test runs.
-
-Here's a snapshot of what an HTML report looks like:
-
-![Artillery Report Sample](./documentation/express-breakpoint-read-report-sample.png)
-
-
 ### Interactive Dashboard
 
 An interactive dashboard for visualizing and comparing performance metrics is available on Looker Studio.
@@ -255,6 +246,16 @@ Here's a snapshot of what an Looker Dashboard looks like:
 ![Looker Dashboard](./documentation/looker/report_dashboard.png)
 
 A Looker Dashboard PDF version can be downloaded [here](./documentation/looker/report_dashboard.pdf).
+
+
+### Artillery Reports
+
+Reports for all test scenarios are available in `documentation/artillery_generated_reports`. These can serve as a reference for what to expect from your own test runs.
+
+Here's a snapshot of what an HTML report looks like:
+
+![Artillery Report Sample](./documentation/express-breakpoint-read-report-sample.png)
+
 
 
 ## Contributing
