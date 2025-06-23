@@ -239,7 +239,6 @@ This project provides comprehensive documentation and pre-generated reports in t
 An interactive dashboard for visualizing and comparing performance metrics is available on Looker Studio.
 
 - **Public URL**: [View the Performance Dashboard](https://lookerstudio.google.com/reporting/270e16b6-8831-41d5-aed0-4d2352b39218/page/pqwOF)
-- **Note**: You must be signed into a Google account to view this dashboard.
 
 Here's a snapshot of what an Looker Dashboard looks like:
 
