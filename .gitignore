@@ -1,3 +1,8 @@
 artillery_tests/reports/*
 !artillery_tests/reports/.gitkeep
 workspace/
+
+# Local secret files. Example files stay tracked.
+express/.env
+fastapi_async/.env
+fastapi_sync/.env
