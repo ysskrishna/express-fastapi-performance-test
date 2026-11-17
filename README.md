@@ -8,6 +8,8 @@
 [![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)](https://expressjs.com)
 [![Artillery](https://img.shields.io/badge/Artillery-2.0.21-FF0000?style=flat&logo=artillery&logoColor=white)](https://artillery.io)
 [![Looker](https://img.shields.io/badge/Looker-4285F4?style=flat&logo=looker&logoColor=white)](https://lookerstudio.google.com/reporting/270e16b6-8831-41d5-aed0-4d2352b39218/page/pqwOF)
+[![GitHub release](https://img.shields.io/github/v/release/ysskrishna/express-fastapi-performance-test?label=release)](https://github.com/ysskrishna/express-fastapi-performance-test/releases)
+[![Author site](https://img.shields.io/badge/author-ysskrishna.space-informational)](https://ysskrishna.space)
 
 This project compares the performance of three different backend implementations:
 - FastAPI (Synchronous)
@@ -33,7 +35,7 @@ The comparison is done through load testing using [Artillery.io](https://www.art
 
 - Docker and Docker Compose
 - Node.js (for running Artillery)
-- [Artillery.io](Artillery.io) (version 2.0.21)
+- [Artillery.io](https://www.artillery.io/) (version 2.0.21)
 
 ## Docker Compose Profiles
 
@@ -256,13 +258,40 @@ Here's a snapshot of what an HTML report looks like:
 ![Artillery Report Sample](./documentation/express-breakpoint-read-report-sample.png)
 
 
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+## Built and maintained by
+
+FastAPI vs Express Performance Test is built and maintained by:
+
+| | Name | GitHub | Role |
+|---|------|--------|------|
+| <img src="https://github.com/ysskrishna.png?size=120" width="60" height="60" alt="Y. Siva Sai Krishna"> | **Y. Siva Sai Krishna** | [@ysskrishna](https://github.com/ysskrishna) | Creator |
+
+## Changelog
+
+See [CHANGELOG](CHANGELOG.md) for release history.
+
+## Support
+
+If you find this project helpful:
+
+- ⭐ Star the repository
+- 🐛 [Report issues](https://github.com/ysskrishna/express-fastapi-performance-test/issues)
+- 🔀 Submit pull requests
+- 💝 [Sponsor on GitHub](https://github.com/sponsors/ysskrishna)
+
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT © [Y. Siva Sai Krishna](https://github.com/ysskrishna) — see [LICENSE](LICENSE) for details.
 
-**Author:** [Siva Sai Krishna](https://github.com/ysskrishna)
+---
+
+<p align="left">
+  <a href="https://github.com/ysskrishna">Author's GitHub</a> •
+  <a href="https://linkedin.com/in/ysskrishna">Author's LinkedIn</a> •
+  <a href="https://ysskrishna.space">Author's site</a> •
+  <a href="https://github.com/ysskrishna/express-fastapi-performance-test/issues">Report Issues</a>
+</p>
